@@ -78,6 +78,14 @@ fun BookListScreen(
     LaunchedEffect(state.searchResults) {
         searchResultsListState.animateScrollToItem(0)
     }
+    LaunchedEffect(state.selectedTabIndex) {
+        pagerState.animateScrollToPage(state.selectedTabIndex)
+    }
+    LaunchedEffect(pagerState.currentPage) {
+        if(!pagerState.isScrollInProgress) {
+            onAction(BookListAction.OnTabSelected(pagerState.currentPage))
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
