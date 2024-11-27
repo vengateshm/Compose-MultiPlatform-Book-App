@@ -1,8 +1,8 @@
 package dev.vengateshm.compose.bookapp
 
 import androidx.compose.ui.window.ComposeUIViewController
+import dev.vengateshm.compose.bookapp.app.App
 import dev.vengateshm.compose.bookapp.di.initKoin
-import io.ktor.client.engine.darwin.Darwin
 
 fun MainViewController() = ComposeUIViewController(
     configure = {
