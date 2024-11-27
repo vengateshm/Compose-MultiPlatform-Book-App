@@ -5,7 +5,7 @@ import dev.vengateshm.compose.bookapp.book.domain.Book
 
 fun SearchedBookDto.toBook(): Book {
     return Book(
-        id = id,
+        id = id.substringAfterLast("/"),
         title = title,
         imageUrl = generateImageUrl(coverAlternativeKey, coverKey),
         authors = authorNames ?: emptyList(),
