@@ -13,9 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(engine = remember {
+            App(/*engine = remember {
                 OkHttp.create()
-            })
+            }*/)
         }
     }
 }
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App(engine = remember {
+    App(/*engine = remember {
         OkHttp.create()
-    })
+    }*/)
 }
