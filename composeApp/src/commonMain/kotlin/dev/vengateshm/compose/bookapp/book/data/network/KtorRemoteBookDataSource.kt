@@ -1,5 +1,6 @@
 package dev.vengateshm.compose.bookapp.book.data.network
 
+import dev.vengateshm.compose.bookapp.book.data.dto.BookWorkDto
 import dev.vengateshm.compose.bookapp.book.data.dto.SearchResponseDto
 import dev.vengateshm.compose.bookapp.core.data.safeCall
 import dev.vengateshm.compose.bookapp.core.domain.DataError
@@ -17,7 +18,7 @@ class KtorRemoteBookDataSource(
         query: String,
         resultLimit: Int?
     ): Result<SearchResponseDto, DataError.Remote> {
-        return safeCall {
+        return safeCall<SearchResponseDto> {
             httpClient.get(
                 urlString = "$BASE_URL/search.json"
             ) {
@@ -29,6 +30,14 @@ class KtorRemoteBookDataSource(
                     "key,title,language,cover_i,author_key,author_name,cover_edition_key,first_published_year,ratings_average,ratings_count,number_of_pages_median,edition_count"
                 )
             }
+        }
+    }
+
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
+        return safeCall<BookWorkDto> {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
         }
     }
 }
