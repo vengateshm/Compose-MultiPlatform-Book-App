@@ -5,6 +5,7 @@ import dev.vengateshm.compose.bookapp.book.data.network.RemoteBookDataSource
 import dev.vengateshm.compose.bookapp.book.data.repository.DefaultRepository
 import dev.vengateshm.compose.bookapp.book.domain.repository.BookRepository
 import dev.vengateshm.compose.bookapp.book.presentation.book_list.BookListViewModel
+import dev.vengateshm.compose.bookapp.book.presentation.book_detail.BookDetailViewModel
 import dev.vengateshm.compose.bookapp.book.presentation.SelectedBookViewModel
 import dev.vengateshm.compose.bookapp.core.data.HttpClientFactory
 import org.koin.core.module.Module
@@ -20,5 +21,6 @@ val sharedModule = module {
     singleOf(::KtorRemoteBookDataSource).bind<RemoteBookDataSource>()
     singleOf(::DefaultRepository).bind<BookRepository>()
     viewModelOf(::BookListViewModel)
+    viewModelOf(::BookDetailViewModel)
     viewModelOf(::SelectedBookViewModel)
 }
