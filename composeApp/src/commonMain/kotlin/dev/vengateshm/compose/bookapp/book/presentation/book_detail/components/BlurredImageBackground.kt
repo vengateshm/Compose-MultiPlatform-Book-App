@@ -131,9 +131,9 @@ fun BlurredImageBackground(
                     .width(200.dp)
                     .aspectRatio(2 / 3f),
                 shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.elevatedCardColors(
+                /*colors = CardDefaults.elevatedCardColors(
                     containerColor = Color.Transparent
-                ),
+                ),*/
                 elevation = CardDefaults.elevatedCardElevation(
                     defaultElevation = 15.dp
                 )
