@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -42,6 +43,7 @@ import dev.vengateshm.compose.bookapp.book.presentation.book_list.components.Boo
 import dev.vengateshm.compose.bookapp.book.presentation.book_list.components.BookSearchBar
 import dev.vengateshm.compose.bookapp.core.presentation.DarkBlue
 import dev.vengateshm.compose.bookapp.core.presentation.DesertWhite
+import dev.vengateshm.compose.bookapp.core.presentation.PulseAnimation
 import dev.vengateshm.compose.bookapp.core.presentation.SandYellow
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -174,7 +176,8 @@ fun BookListScreen(
                         when (pageIndex) {
                             0 -> {
                                 if (state.isLoading) {
-                                    CircularProgressIndicator()
+//                                    CircularProgressIndicator()
+                                    PulseAnimation(modifier = Modifier.size(60.dp))
                                 } else {
                                     when {
                                         state.errorMessage != null -> {
