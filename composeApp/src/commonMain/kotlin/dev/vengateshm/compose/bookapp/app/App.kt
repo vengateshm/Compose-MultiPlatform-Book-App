@@ -1,5 +1,7 @@
 package dev.vengateshm.compose.bookapp.app
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,7 +37,10 @@ fun App(/*engine: HttpClientEngine*/) {
             navigation<Route.BookGraph>(
                 startDestination = Route.BookList
             ) {
-                composable<Route.BookList> { navBackStackEntry ->
+                composable<Route.BookList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) { navBackStackEntry ->
                     val viewModel = koinViewModel<BookListViewModel>()
                     val selectedBookViewModel =
                         navBackStackEntry.sharedKoinViewModel<SelectedBookViewModel>(navController)
@@ -61,7 +66,10 @@ fun App(/*engine: HttpClientEngine*/) {
                         }
                     )
                 }
-                composable<Route.BookDetail> { navBackStackEntry ->
+                composable<Route.BookDetail>(
+                    enterTransition = { slideInHorizontally { initialOffset -> initialOffset } },
+                    exitTransition = { slideOutHorizontally { initialOffset -> initialOffset } }
+                ) { navBackStackEntry ->
                     val args = navBackStackEntry.toRoute<Route.BookDetail>()
                     val selectedBookViewModel =
                         navBackStackEntry.sharedKoinViewModel<SelectedBookViewModel>(navController)
