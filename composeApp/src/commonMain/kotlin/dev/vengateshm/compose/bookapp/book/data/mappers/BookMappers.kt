@@ -1,5 +1,6 @@
 package dev.vengateshm.compose.bookapp.book.data.mappers
 
+import dev.vengateshm.compose.bookapp.book.data.database.BookEntity
 import dev.vengateshm.compose.bookapp.book.data.dto.SearchedBookDto
 import dev.vengateshm.compose.bookapp.book.domain.Book
 
@@ -11,7 +12,7 @@ fun SearchedBookDto.toBook(): Book {
         authors = authorNames ?: emptyList(),
         description = null, // Assuming no description in SearchedBookDto
         languages = languages ?: emptyList(),
-        firstPublishedYear = firstPublishYear?.toString(),
+        firstPublishYear = firstPublishYear?.toString(),
         averageRating = ratingsAverage,
         ratingCount = ratingsCount,
         numPages = numPagesMedian,
@@ -26,4 +27,36 @@ private fun generateImageUrl(coverAlternativeKey: Int?, coverKey: String?): Stri
     } else {
         "https://covers.openlibrary.org/b/id/${coverAlternativeKey}-L.jpg"
     }
+}
+
+fun Book.toBookEntity(): BookEntity {
+    return BookEntity(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = imageUrl,
+        languages = languages,
+        authors = authors,
+        firstPublishYear = firstPublishYear,
+        ratingsAverage = averageRating,
+        ratingsCount = ratingCount,
+        numPagesMedian = numPages,
+        numEditions = numEditions,
+    )
+}
+
+fun BookEntity.toBook(): Book {
+    return Book(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = imageUrl,
+        languages = languages,
+        authors = authors,
+        firstPublishYear = firstPublishYear,
+        averageRating = ratingsAverage,
+        ratingCount = ratingsCount,
+        numPages = numPagesMedian,
+        numEditions = numEditions,
+    )
 }
