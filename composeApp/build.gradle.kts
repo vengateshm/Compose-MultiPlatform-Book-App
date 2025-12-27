@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -48,6 +49,7 @@ kotlin {
             implementation(libs.koin.androidx.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.androidx.room.sqlite.wrapper)
+            implementation(libs.sqldelight.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -69,6 +71,11 @@ kotlin {
 
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
+
+            implementation(libs.kotlinx.datetime)
+
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -77,6 +84,7 @@ kotlin {
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.ios)
         }
     }
 }
