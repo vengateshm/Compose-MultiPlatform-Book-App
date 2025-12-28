@@ -1,6 +1,8 @@
 package dev.vengateshm.compose.bookapp.book.data.repository
 
 import androidx.sqlite.SQLiteException
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import dev.vengateshm.compose.bookapp.BookDatabase
 import dev.vengateshm.compose.bookapp.book.data.database.DatabaseDriverFactory
 import dev.vengateshm.compose.bookapp.book.data.mappers.toBook
@@ -10,6 +12,8 @@ import dev.vengateshm.compose.bookapp.book.domain.repository.BookRepository
 import dev.vengateshm.compose.bookapp.core.domain.DataError
 import dev.vengateshm.compose.bookapp.core.domain.Result
 import dev.vengateshm.compose.bookapp.core.domain.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -49,11 +53,6 @@ class SqlDelightRepository(
             }
     }
 
-    override fun getFavoriteBooks(): Flow<List<Book>> {
-        val favoriteBooks = query.getFavoriteBooks().executeAsList().map { it.toBook() }
-        return flowOf(favoriteBooks)
-    }
-
     override suspend fun markAsFavorite(book: Book): Result<Unit, DataError.Local> {
         return try {
             query.transaction {
@@ -82,5 +81,10 @@ class SqlDelightRepository(
         query.transaction {
             query.deleteFavoriteBook(id)
         }
+    }
+
+    override fun getFavoriteBooks(): Flow<List<Book>> {
+        return query.getFavoriteBooks().asFlow().mapToList(Dispatchers.IO)
+            .map { bookTables -> bookTables.map { it.toBook() } }
     }
 }
