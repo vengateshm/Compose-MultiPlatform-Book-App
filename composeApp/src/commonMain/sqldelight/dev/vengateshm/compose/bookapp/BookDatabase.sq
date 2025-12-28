@@ -1,0 +1,57 @@
+CREATE TABLE BookTable (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    imageUrl TEXT NOT NULL,
+    languages TEXT NOT NULL,
+    authors TEXT NOT NULL,
+    firstPublishYear TEXT,
+    ratingsAverage REAL,
+    ratingsCount INTEGER,
+    numPagesMedian INTEGER,
+    numEditions INTEGER NOT NULL,
+    dummy TEXT NOT NULL DEFAULT ''
+);
+
+insertBook:
+INSERT INTO BookTable(
+    id,
+    title,
+    description,
+    imageUrl,
+    languages,
+    authors,
+    firstPublishYear,
+    ratingsAverage,
+    ratingsCount,
+    numPagesMedian,
+    numEditions,
+    dummy
+)
+VALUES (
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
+);
+
+getFavoriteBooks:
+SELECT *
+FROM BookTable;
+
+getFavoriteBook:
+SELECT *
+FROM BookTable
+WHERE id = :id;
+
+deleteFavoriteBook:
+DELETE FROM BookTable
+WHERE id = :id;

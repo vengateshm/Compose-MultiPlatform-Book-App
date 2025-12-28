@@ -1,5 +1,6 @@
 package dev.vengateshm.compose.bookapp.book.data.mappers
 
+import dev.vengateshm.compose.bookapp.BookTable
 import dev.vengateshm.compose.bookapp.book.data.database.BookEntity
 import dev.vengateshm.compose.bookapp.book.data.dto.SearchedBookDto
 import dev.vengateshm.compose.bookapp.book.domain.Book
@@ -58,5 +59,21 @@ fun BookEntity.toBook(): Book {
         ratingCount = ratingsCount,
         numPages = numPagesMedian,
         numEditions = numEditions,
+    )
+}
+
+fun BookTable.toBook(): Book {
+    return Book(
+        id = this.id,
+        title = this.title,
+        imageUrl = this.imageUrl,
+        authors = emptyList(),
+        description = this.description,
+        languages = emptyList(),
+        firstPublishYear = this.firstPublishYear,
+        averageRating = this.ratingsAverage,
+        ratingCount = this.ratingsCount?.toInt() ?: 0,
+        numPages = this.numPagesMedian?.toInt() ?: 0,
+        numEditions = this.numEditions.toInt()
     )
 }

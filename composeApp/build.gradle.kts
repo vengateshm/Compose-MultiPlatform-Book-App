@@ -135,3 +135,12 @@ compose.desktop {
         }
     }
 }
+
+sqldelight {
+    databases{
+        create("BookDatabase") {
+            packageName = "dev.vengateshm.compose.bookapp"
+
+        }
+    }
+}
